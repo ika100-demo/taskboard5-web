@@ -1,7 +1,7 @@
 ---
 spec_id: 001-task-board-page-that-lists-tasks-and
 title: Task board page that lists tasks and adds a task through the web server
-status: building
+status: done
 priority: P1
 shape: web-nextjs
 parent: ika100-demo/taskboard5-gitops:001-persistent-tasks-and-web-task-board
@@ -121,3 +121,4 @@ server-only env var API_URL (in dev: http://taskboard5-api); for local runs and 
 - 2026-11-06 created from the system plan, with its criteria (spec 147)
 - 2026-11-06 approved
 - 2026-11-06 building
+- 2026-11-06 done
