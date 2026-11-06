@@ -9,6 +9,12 @@ Configuration is read exclusively from environment variables. Defaults below are
 | `PORT` | `3000` | HTTP port the server listens on. |
 | `NODE_ENV` | `production` (in the image) | Node environment. |
 
+## Task API
+
+| Variable | Default | Description |
+|---|---|---|
+| `API_URL` | _(none; required)_ | Base URL of the Task API (dev: `http://taskboard5-api`). Server-only, read at call time; never prefix with `NEXT_PUBLIC_`. |
+
 ## Observability
 
 | Variable | Default | Description |
