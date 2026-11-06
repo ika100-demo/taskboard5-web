@@ -13,17 +13,35 @@ function freePort(): string {
 if (!smokeBaseUrl && !process.env.E2E_PORT) process.env.E2E_PORT = process.env.PORT || freePort();
 const port = process.env.E2E_PORT;
 
+// The local app talks to a scriptable fake Task API, never a real one.
+if (!smokeBaseUrl && !process.env.FAKE_TASK_API_PORT) process.env.FAKE_TASK_API_PORT = freePort();
+const fakePort = process.env.FAKE_TASK_API_PORT;
+if (!smokeBaseUrl) process.env.FAKE_TASK_API_URL = `http://127.0.0.1:${fakePort}`;
+const fakeUrl = process.env.FAKE_TASK_API_URL;
+
 export default defineConfig({
   testDir: "./e2e",
   ...(smokeBaseUrl
     ? {}
     : {
-        webServer: {
-          command: `pnpm build && pnpm exec next start --port ${port}`,
-          url: `http://localhost:${port}/api/health`,
-          reuseExistingServer: !process.env.CI,
-          timeout: 120_000,
-        },
+        // The fake is shared state, so tests run serially.
+        workers: 1,
+        webServer: [
+          {
+            command: "node e2e/support/fake-task-api.mjs",
+            url: `${fakeUrl}/tasks`,
+            env: { FAKE_TASK_API_PORT: String(fakePort) },
+            reuseExistingServer: false,
+            timeout: 30_000,
+          },
+          {
+            command: `pnpm build && pnpm exec next start --port ${port}`,
+            url: `http://localhost:${port}/api/health`,
+            env: { API_URL: String(fakeUrl) },
+            reuseExistingServer: !process.env.CI,
+            timeout: 120_000,
+          },
+        ],
       }),
   use: { baseURL: smokeBaseUrl || `http://localhost:${port}` },
 });
