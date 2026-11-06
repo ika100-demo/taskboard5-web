@@ -478,3 +478,91 @@ main {
     padding-block: var(--s-2);
   }
 }
+
+/* ---------- task board ---------- */
+
+.board {
+  display: grid;
+  gap: var(--s-6);
+  padding-block: var(--s-8);
+  min-width: 0;
+}
+
+.task-list {
+  display: grid;
+  gap: var(--s-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.task-list li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--s-2) var(--s-4);
+  padding: var(--s-3) var(--s-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.task-title {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.task-due {
+  color: var(--muted);
+}
+
+.board-empty {
+  color: var(--muted);
+}
+
+.board-error,
+.field-error {
+  color: #b91c1c;
+}
+
+@media (prefers-color-scheme: dark) {
+  .board-error,
+  .field-error {
+    color: #f87171;
+  }
+}
+
+.task-form {
+  display: grid;
+  gap: var(--s-4);
+  max-width: 28rem;
+}
+
+.field {
+  display: grid;
+  gap: var(--s-1);
+}
+
+.field input {
+  min-width: 0;
+  width: 100%;
+  min-height: 2.75rem;
+  padding: var(--s-2) var(--s-3);
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.task-form button:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* Next's route announcer is an empty role="alert" live region; the app has a single route and no client navigation, and
+   a second alert in the accessibility tree makes the board's own alert ambiguous. */
+next-route-announcer {
+  display: none;
+}
