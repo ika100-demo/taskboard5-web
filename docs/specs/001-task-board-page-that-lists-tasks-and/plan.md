@@ -17,6 +17,7 @@ tasks:
     covers: [AC-001.3, AC-001.5, AC-001.6, AC-001.7]
     parallel_safe: true
     depends_on: []
+    done: true
   - id: t3
     title: Task board page, board and add-task form components
     files: [app/page.tsx, app/_components/task-board.tsx, app/_components/add-task-form.tsx, app/globals.css, tests/page.test.tsx, e2e/home.spec.ts]
