@@ -12,6 +12,12 @@ export type TaskBoardProps = { initial: ListResult };
 export function TaskBoard({ initial }: TaskBoardProps) {
   const router = useRouter();
   const [tasks, setTasks] = useState<Task[]>(initial.ok ? initial.tasks : []);
+  const [seen, setSeen] = useState<ListResult>(initial);
+  if (seen !== initial) {
+    // A refreshed server result replaces the client state (derived-state pattern).
+    setSeen(initial);
+    setTasks(initial.ok ? initial.tasks : []);
+  }
 
   function onAdded(task: Task) {
     if (!initial.ok) {
