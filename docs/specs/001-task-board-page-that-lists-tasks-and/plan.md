@@ -10,6 +10,7 @@ tasks:
     covers: [AC-001.1, AC-001.3, AC-001.4, AC-001.5, AC-001.6, AC-001.7]
     parallel_safe: true
     depends_on: []
+    done: true
   - id: t2
     title: Fake Task API for e2e and Playwright wiring
     files: [e2e/support/fake-task-api.mjs, playwright.config.ts]
